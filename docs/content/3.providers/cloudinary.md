@@ -1,9 +1,18 @@
 ---
 title: Cloudinary
 description: Nuxt Image has first class integration with Cloudinary.
+links:
+  - label: Source
+    icon: i-simple-icons-github
+    to: https://github.com/nuxt/image/blob/main/src/runtime/providers/cloudinary.ts
+    size: xs
 ---
 
 Integration between [Cloudinary](https://cloudinary.com) and the image module.
+
+::callout
+If you are looking for more advanced Cloudinary usage or prebuilt components like VideoPlayer, OgImage or ProductGallery, check out Cloudinary module for Nuxt by visiting module [documentation](https://cloudinary.nuxtjs.org/) or GitHub [repository](https://github.com/nuxt-modules/cloudinary)
+::
 
 To use this provider you just need to specify the base url of your project in cloudinary.
 

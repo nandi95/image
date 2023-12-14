@@ -7,8 +7,18 @@
     "main"
   ],
   "ignoreDeps": [
-    "@nuxt/image",
-    "@vitest/coverage-v8",
-    "vitest"
+    "@nuxt/image"
+  ],
+  "packageRules": [
+    {
+      "groupName": "docs",
+      "matchPackageNames": [
+        "@nuxt/content"
+      ],
+      "matchPackagePatterns": [
+        "^@nuxthq/",
+        "^@nuxt/ui"
+      ]
+    }
   ]
 }

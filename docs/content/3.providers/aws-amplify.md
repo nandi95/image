@@ -1,16 +1,20 @@
 ---
-title: Vercel
-description: Optimize images at Vercel's Edge Network.
+title: AWS Amplify
+description: Nuxt Image has first class integration with AWS Amplify Hosting
 links:
   - label: Source
     icon: i-simple-icons-github
-    to: https://github.com/nuxt/image/blob/main/src/runtime/providers/vercel.ts
+    to: https://github.com/nuxt/image/blob/main/src/runtime/providers/awsAmplify.ts
     size: xs
 ---
 
-When deploying your nuxt applications to [Vercel](https://vercel.com/) platform, image module can use Vercel's [Edge Network](https://vercel.com/docs/edge-network/overview) to optimize images on demand.
+Integration between [AWS Amplify Hosting](https://aws.amazon.com/amplify/) and the image module.
 
-This provider will be enabled by default in vercel deployments.
+This provider will be enabled by default in AWS Amplify deployments.
+
+::alert{type="warning"}
+This is an experimental preset and will be available soon! 🚀
+::
 
 ## Domains
 

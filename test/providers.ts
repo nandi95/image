@@ -3,6 +3,8 @@ export const images = [
     args: ['/test.png', {}],
     none: { url: '/test.png' },
     ipx: { url: '/_ipx/_/test.png' },
+    aliyun: { url: '/test.png' },
+    awsAmplify: { url: '/?url=/test.png&w=1536&q=100' },
     cloudflare: { url: '/test.png' },
     cloudinary: { url: '/f_auto,q_auto/test' },
     twicpics: { url: '/test.png' },
@@ -24,12 +26,15 @@ export const images = [
     vercel: { url: '/_vercel/image?url=/test.png&w=1536&q=100' },
     wagtail: { url: '329944/original|format-webp|webpquality-70' },
     directus: { url: '/assets/1ac73658-8b62-4dea-b6da-529fbc9d01a4' },
-    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/' }
+    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/' },
+    sirv: { url: 'https://demo.sirv.com/test.png' }
   },
   {
     args: ['/test.png', { width: 200 }],
     none: { url: '/test.png' },
     ipx: { url: '/_ipx/w_200/test.png' },
+    aliyun: { url: '/test.png?image_process=resize,w_200' },
+    awsAmplify: { url: '/?url=/test.png&w=320&q=100' },
     cloudflare: { url: '/cdn-cgi/image/w=200/test.png' },
     cloudinary: { url: '/f_auto,q_auto,w_200/test' },
     twicpics: { url: '/test.png?twic=v1/cover=200x-' },
@@ -51,12 +56,15 @@ export const images = [
     vercel: { url: '/_vercel/image?url=/test.png&w=320&q=100' },
     wagtail: { url: '329944/width-200|format-webp|webpquality-70' },
     directus: { url: '/assets/1ac73658-8b62-4dea-b6da-529fbc9d01a4?width=200' },
-    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/-/resize/200x/' }
+    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/-/resize/200x/' },
+    sirv: { url: 'https://demo.sirv.com/test.png?w=200' }
   },
   {
     args: ['/test.png', { height: 200 }],
     none: { url: '/test.png' },
     ipx: { url: '/_ipx/h_200/test.png' },
+    aliyun: { url: '/test.png?image_process=resize,h_200' },
+    awsAmplify: { url: '/?url=/test.png&w=1536&q=100' },
     cloudflare: { url: '/cdn-cgi/image/h=200/test.png' },
     cloudinary: { url: '/f_auto,q_auto,h_200/test' },
     twicpics: { url: '/test.png?twic=v1/cover=-x200' },
@@ -78,12 +86,15 @@ export const images = [
     vercel: { url: '/_vercel/image?url=/test.png&w=1536&q=100' },
     wagtail: { url: '329944/height-200|format-webp|webpquality-70' },
     directus: { url: '/assets/1ac73658-8b62-4dea-b6da-529fbc9d01a4?height=200' },
-    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/-/resize/x200/' }
+    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/-/resize/x200/' },
+    sirv: { url: 'https://demo.sirv.com/test.png?h=200' }
   },
   {
     args: ['/test.png', { width: 200, height: 200 }],
     none: { url: '/test.png' },
     ipx: { url: '/_ipx/s_200x200/test.png' },
+    aliyun: { url: '/test.png?image_process=resize,fw_200,fh_200' },
+    awsAmplify: { url: '/?url=/test.png&w=320&q=100' },
     cloudflare: { url: '/cdn-cgi/image/w=200,h=200/test.png' },
     cloudinary: { url: '/f_auto,q_auto,w_200,h_200/test' },
     twicpics: { url: '/test.png?twic=v1/cover=200x200' },
@@ -105,12 +116,15 @@ export const images = [
     vercel: { url: '/_vercel/image?url=/test.png&w=320&q=100' },
     wagtail: { url: '329944/fill-200x200-c0|format-webp|webpquality-70' },
     directus: { url: '/assets/1ac73658-8b62-4dea-b6da-529fbc9d01a4?width=200&height=200' },
-    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/-/resize/200x200/' }
+    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/-/resize/200x200/' },
+    sirv: { url: 'https://demo.sirv.com/test.png?w=200&h=200' }
   },
   {
     args: ['/test.png', { width: 200, height: 200, fit: 'contain' }],
     none: { url: '/test.png' },
     ipx: { url: '/_ipx/fit_contain&s_200x200/test.png' },
+    aliyun: { url: '/test.png?image_process=fit,contain/resize,fw_200,fh_200' },
+    awsAmplify: { url: '/?url=/test.png&w=320&q=100' },
     cloudflare: { url: '/cdn-cgi/image/w=200,h=200,fit=contain/test.png' },
     cloudinary: { url: '/f_auto,q_auto,w_200,h_200,c_scale/test' },
     twicpics: { url: '/test.png?twic=v1/inside=200x200' },
@@ -132,12 +146,15 @@ export const images = [
     vercel: { url: '/_vercel/image?url=/test.png&w=320&q=100' },
     wagtail: { url: '329944/fill-200x200-c0|format-webp|webpquality-70' },
     directus: { url: '/assets/1ac73658-8b62-4dea-b6da-529fbc9d01a4?width=200&height=200&fit=contain' },
-    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/-/resize/200x200/-/stretch/off/' }
+    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/-/resize/200x200/-/stretch/off/' },
+    sirv: { url: 'https://demo.sirv.com/test.png?w=200&h=200&scale.option=fit' }
   },
   {
     args: ['/test.png', { width: 200, height: 200, fit: 'contain', format: 'jpeg' }],
     none: { url: '/test.png' },
     ipx: { url: '/_ipx/fit_contain&f_jpeg&s_200x200/test.png' },
+    aliyun: { url: '/test.png?image_process=fit,contain/format,jpeg/resize,fw_200,fh_200' },
+    awsAmplify: { url: '/?url=/test.png&w=320&q=100' },
     cloudflare: { url: '/cdn-cgi/image/w=200,h=200,fit=contain,f=jpeg/test.png' },
     cloudinary: { url: '/f_jpg,q_auto,w_200,h_200,c_scale/test' },
     twicpics: { url: '/test.png?twic=v1/output=jpeg/inside=200x200' },
@@ -159,7 +176,8 @@ export const images = [
     vercel: { url: '/_vercel/image?url=/test.png&w=320&q=100' },
     wagtail: { url: '329944/fill-200x200-c0|format-jpeg|jpegquality-70' },
     directus: { url: '/assets/1ac73658-8b62-4dea-b6da-529fbc9d01a4?width=200&height=200&fit=contain&format=jpg' },
-    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/-/format/jpeg/-/resize/200x200/-/stretch/off/' }
+    uploadcare: { url: 'https://ucarecdn.com/c160afba-8b42-45a9-a46a-d393248b0072/-/format/jpeg/-/resize/200x200/-/stretch/off/' },
+    sirv: { url: 'https://demo.sirv.com/test.png?w=200&h=200&scale.option=fit&format=jpg' }
   }
 ] as const
 

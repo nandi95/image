@@ -1,9 +1,10 @@
-import type { IPXOptions } from 'ipx'
+import type { Nuxt } from '@nuxt/schema'
 import type { ModuleOptions } from '../module'
+import type { IPXRuntimeConfig } from '../ipx'
 import type { ImageModifiers } from './image'
 
 // eslint-disable-next-line no-use-before-define
-export type ProviderSetup = (providerOptions: ImageModuleProvider, moduleOptions: ModuleOptions, nuxt: any)
+export type ProviderSetup = (providerOptions: ImageModuleProvider, moduleOptions: ModuleOptions, nuxt: Nuxt)
   => void | Promise<void>
 
 export interface InputProvider<T = any> {
@@ -41,7 +42,7 @@ export interface CloudinaryOptions {
   [key: string]: any
 }
 
-export interface UploadcareModifiers extends ImageModifiers{
+export interface UploadcareModifiers extends ImageModifiers {
   // Image Compression
   format: 'jpeg' | 'png' | 'webp' | 'auto'
   quality: 'smart' | 'smart_retina' | 'normal' | 'better' | 'best' | 'lighter' | 'lightest'
@@ -49,7 +50,7 @@ export interface UploadcareModifiers extends ImageModifiers{
   strip_meta: 'all' | 'none' | 'sensitive'
   // Image Geometry
   preview: `${number}x${number}`
-  resize: `${number}x${number}` | `${number}x`| `x${number}`
+  resize: `${number}x${number}` | `${number}x` | `x${number}`
   smart_resize: `${number}x${number}`
   crop: string | string[]
   scale_crop: string | string[]
@@ -64,11 +65,47 @@ export interface UploadcareOptions {
   [key: string]: any
 }
 
+// Reference: https://github.com/unjs/ipx?tab=readme-ov-file#modifiers
+// TODO: https://github.com/unjs/ipx/issues/199
+export interface IPXModifiers extends ImageModifiers {
+  format: 'jpeg' | 'jpg' | 'png' | 'webp' | 'avif' | 'gif' | 'heif' | 'tiff' | 'auto' | string
+  fit: 'contain' | 'cover' | 'fill' | 'inside' | 'outside' | string
+  resize: string
+  quality: number | string
+  background: string
+  position: string
+  enlarge: true | 'true'
+  kernel: 'nearest' | 'cubic' | 'mitchell' | 'lanczos2' | 'lanczos3' | string
+  trim: number | string
+  extend: string
+  extract: string
+  rotate: number | string
+  flip: true | 'true'
+  flop: true | 'true'
+  sharpen: number | string
+  median: number | string
+  blur: number | string
+  flatten: true | 'true'
+  gamma: string
+  negate: true | 'true'
+  normalize: true | 'true'
+  threshold: number | string
+  modulate: string
+  tint: number | string
+  grayscale: true | 'true'
+  animated: true | 'true'
+}
+
+export interface IPXOptions extends Omit<IPXRuntimeConfig, 'alias'> {
+  modifiers: Partial<IPXModifiers>
+}
+
 export interface ImageProviders {
   cloudflare?: any
   cloudinary?: Partial<CloudinaryOptions>
   contentful?: any
   cloudimage?: any
+  sirv?: any
   fastly?: any
   glide?: any
   gumlet?: any

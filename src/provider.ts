@@ -4,13 +4,15 @@ import type { Nuxt } from '@nuxt/schema'
 import type { NitroConfig } from 'nitropack'
 import { createResolver, resolvePath } from '@nuxt/kit'
 import { hash } from 'ohash'
-import { provider } from 'std-env'
+import { provider, type ProviderName } from 'std-env'
 import type { InputProvider, ImageModuleProvider, ProviderSetup } from './types'
 import type { ModuleOptions } from './module'
 import { ipxSetup } from './ipx'
 
 // Please add new providers alphabetically to the list below
 const BuiltInProviders = [
+  'aliyun',
+  'awsAmplify',
   'cloudflare',
   'cloudimage',
   'cloudinary',
@@ -24,6 +26,7 @@ const BuiltInProviders = [
   'imagekit',
   'imgix',
   'ipx',
+  'ipxStatic',
   'layer0',
   'netlify',
   'prepr',
@@ -36,13 +39,16 @@ const BuiltInProviders = [
   'unsplash',
   'uploadcare',
   'vercel',
-  'wagtail'
-]
+  'wagtail',
+  'sirv'
+] as const
 
-export const providerSetup: Record<string, ProviderSetup> = {
+export type ImageProviderName = typeof BuiltInProviders[number]
+
+export const providerSetup: Partial<Record<ImageProviderName, ProviderSetup>> = {
   // IPX
-  ipx: ipxSetup,
-  static: ipxSetup,
+  ipx: ipxSetup(),
+  ipxStatic: ipxSetup({ isStatic: true }),
 
   // https://vercel.com/docs/more/adding-your-framework#images
   vercel (_providerOptions, moduleOptions, nuxt: Nuxt) {
@@ -57,6 +63,25 @@ export const providerSetup: Record<string, ProviderSetup> = {
         }
       } satisfies NitroConfig['vercel']
     })
+  },
+
+  awsAmplify (_providerOptions, moduleOptions, nuxt: Nuxt) {
+    nuxt.options.nitro = defu(nuxt.options.nitro, {
+      awsAmplify: {
+        imageOptimization: {
+          path: '/_amplify/image',
+          cacheControl: 'public, max-age=300, immutable'
+        },
+        imageSettings: {
+          sizes: Array.from(new Set(Object.values(moduleOptions.screens || {}))),
+          formats: ['image/jpeg', 'image/png', 'image/webp', 'image/avif'] satisfies NonNullable<NonNullable<NitroConfig['awsAmplify']>['imageSettings']>['formats'],
+          minimumCacheTTL: 60 * 5,
+          domains: moduleOptions.domains,
+          remotePatterns: [], // Provided by domains
+          dangerouslyAllowSVG: false // TODO
+        }
+      }
+    })
   }
 }
 
@@ -64,7 +89,7 @@ export async function resolveProviders (nuxt: any, options: ModuleOptions): Prom
   const providers: ImageModuleProvider[] = []
 
   for (const key in options) {
-    if (BuiltInProviders.includes(key)) {
+    if (BuiltInProviders.includes(key as ImageProviderName)) {
       providers.push(await resolveProvider(nuxt, key, { provider: key, options: options[key] }))
     }
   }
@@ -90,11 +115,11 @@ export async function resolveProvider (_nuxt: any, key: string, input: InputProv
   }
 
   const resolver = createResolver(import.meta.url)
-  input.provider = BuiltInProviders.includes(input.provider)
+  input.provider = BuiltInProviders.includes(input.provider as ImageProviderName)
     ? await resolver.resolve('./runtime/providers/' + input.provider)
     : await resolvePath(input.provider)
 
-  const setup = input.setup || providerSetup[input.name]
+  const setup = input.setup || providerSetup[input.name as ImageProviderName]
 
   return <ImageModuleProvider> {
     ...input,
@@ -105,7 +130,12 @@ export async function resolveProvider (_nuxt: any, key: string, input: InputProv
   }
 }
 
-export function detectProvider (userInput?: string) {
+const autodetectableProviders: Partial<Record<ProviderName, ImageProviderName>> = {
+  vercel: 'vercel',
+  aws_amplify: 'awsAmplify'
+}
+
+export function detectProvider (userInput: string = '') {
   if (process.env.NUXT_IMAGE_PROVIDER) {
     return process.env.NUXT_IMAGE_PROVIDER
   }
@@ -114,7 +144,7 @@ export function detectProvider (userInput?: string) {
     return userInput
   }
 
-  if (provider === 'vercel') {
-    return 'vercel'
+  if (provider in autodetectableProviders) {
+    return autodetectableProviders[provider]
   }
 }
